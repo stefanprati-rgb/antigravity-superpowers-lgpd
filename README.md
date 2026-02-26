@@ -5,7 +5,7 @@
 <h1 align="center">antigravity-superpowers</h1>
 
 <p align="center">
-  <strong>Bring the power of <a href="https://github.com/superpowers">Superpowers</a> to <a href="https://antigravity.dev">Antigravity</a>.</strong>
+  <strong>Bring the power of <a href="https://github.com/obra/superpowers">Superpowers</a> to <a href="https://antigravity.google/">Antigravity</a>.</strong>
 </p>
 
 <p align="center">
