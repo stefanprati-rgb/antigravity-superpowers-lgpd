@@ -1,0 +1,29 @@
+{
+  "name": "antigravity-superpowers",
+  "version": "0.1.0",
+  "description": "CLI to initialize the Antigravity Superpowers .agent profile",
+  "type": "module",
+  "bin": {
+    "antigravity-superpowers": "bin/antigravity-superpowers.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "templates/.agent/**",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test tests",
+    "smoke:pack": "node scripts/check-pack.mjs",
+    "prepublishOnly": "npm test && npm run smoke:pack"
+  },
+  "keywords": [
+    "antigravity",
+    "superpowers",
+    "cli"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
