@@ -14,7 +14,9 @@ npx antigravity-superpowers init
 
 ## Why This Exists
 
-Superpowers skills bring real structure to AI-assisted development: brainstorming before implementation, planning before coding, verification before completion claims. That discipline shouldn't be locked to one platform.
+The original Superpowers repo doesn't support Antigravity, and there's no official port planned. I wanted to use Superpowers workflows in Antigravity projects, so I built this myself.
+
+This is my attempt to bring the full Superpowers skill set to Antigravity — as close to the original as possible. The goal was never to fork and diverge; it was to translate just enough to make everything work natively on a different platform. Superpowers skills bring real structure to AI-assisted development — brainstorming before implementation, planning before coding, verification before completion claims — and that discipline shouldn't be locked to one platform.
 
 This port keeps **12 out of 14 original skills intact** and consolidates the remaining 2 into a single new skill that fits Antigravity's execution model. Every skill preserves its original intent, logic, and flow — only the platform-specific references, tool names, and execution primitives have been adapted.
 
