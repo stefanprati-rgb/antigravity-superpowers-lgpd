@@ -1,16 +1,33 @@
-# antigravity-superpowers
+<p align="center">
+  <img src="asset/banner.png" alt="antigravity-superpowers" width="100%" />
+</p>
 
-**Bring the power of [Superpowers](https://github.com/superpowers) to [Antigravity](https://antigravity.dev).**
+<h1 align="center">antigravity-superpowers</h1>
+
+<p align="center">
+  <strong>Bring the power of <a href="https://github.com/superpowers">Superpowers</a> to <a href="https://antigravity.dev">Antigravity</a>.</strong>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/antigravity-superpowers"><img src="https://img.shields.io/npm/v/antigravity-superpowers.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/antigravity-superpowers"><img src="https://img.shields.io/npm/dm/antigravity-superpowers.svg" alt="npm downloads" /></a>
+  <img src="https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg" alt="node version" />
+  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="license" />
+</p>
+
+---
 
 Superpowers is an incredible skill-based workflow system that gives AI coding assistants structured, reliable behavior — brainstorming, planning, test-driven development, code review, debugging, and more. It was originally designed for Claude Code, but the workflows themselves are platform-agnostic gold.
 
 **This project ports that entire system to Antigravity**, preserving the original flow as faithfully as possible. The goal is not to reinvent Superpowers — it's to make them available on Antigravity with the minimal set of changes needed for native compatibility. If you've used Superpowers before, everything should feel familiar. If you haven't, this is a great way to start.
 
-One command. Full profile. Ready to go.
+> **One command. Full profile. Ready to go.**
 
 ```bash
 npx antigravity-superpowers init
 ```
+
+---
 
 ## Why This Exists
 
@@ -20,27 +37,33 @@ This is my attempt to bring the full Superpowers skill set to Antigravity — as
 
 This port keeps **12 out of 14 original skills intact** and consolidates the remaining 2 into a single new skill that fits Antigravity's execution model. Every skill preserves its original intent, logic, and flow — only the platform-specific references, tool names, and execution primitives have been adapted.
 
+---
+
 ## What's Included
 
-13 skills covering the full development lifecycle:
+**13 skills** covering the full development lifecycle:
 
-- **`brainstorming`** — structured exploration before committing to an approach
-- **`writing-plans`** — detailed, step-by-step implementation plans
-- **`executing-plans`** — disciplined plan execution with progress tracking
-- **`single-flow-task-execution`** — ordered task decomposition with review gates _(new, Antigravity-native)_
-- **`test-driven-development`** — write tests first, implement second
-- **`systematic-debugging`** — root cause tracing with supporting techniques
-- **`requesting-code-review`** — structured review flow with checklists
-- **`receiving-code-review`** — handling feedback systematically
-- **`verification-before-completion`** — prove it works before claiming it's done
-- **`finishing-a-development-branch`** — clean branch wrap-up with workflow options
-- **`using-git-worktrees`** — parallel branch management
-- **`using-superpowers`** — skill routing and session bootstrap
-- **`writing-skills`** — create new skills that follow the system's conventions
+| Skill                            | Description                                             |
+| -------------------------------- | ------------------------------------------------------- |
+| `brainstorming`                  | Structured exploration before committing to an approach |
+| `writing-plans`                  | Detailed, step-by-step implementation plans             |
+| `executing-plans`                | Disciplined plan execution with progress tracking       |
+| `single-flow-task-execution`     | Ordered task decomposition with review gates _(new)_    |
+| `test-driven-development`        | Write tests first, implement second                     |
+| `systematic-debugging`           | Root cause tracing with supporting techniques           |
+| `requesting-code-review`         | Structured review flow with checklists                  |
+| `receiving-code-review`          | Handling feedback systematically                        |
+| `verification-before-completion` | Prove it works before claiming it's done                |
+| `finishing-a-development-branch` | Clean branch wrap-up with workflow options              |
+| `using-git-worktrees`            | Parallel branch management                              |
+| `using-superpowers`              | Skill routing and session bootstrap                     |
+| `writing-skills`                 | Create new skills that follow the system's conventions  |
 
-Plus supporting infrastructure: workflows, agents, validation tests, and an AGENTS.md contract that ties it all together.
+Plus supporting infrastructure: workflows, agents, validation tests, and an `AGENTS.md` contract that ties it all together.
 
-## Install
+---
+
+## Quick Start
 
 ```bash
 # Scaffold the .agent profile into your project
@@ -54,7 +77,7 @@ npm install -g antigravity-superpowers
 antigravity-superpowers init
 ```
 
-## Usage
+### Options
 
 ```bash
 # Initialize in current directory
@@ -72,6 +95,8 @@ After init, verify everything is wired up:
 ```bash
 bash .agent/tests/run-tests.sh
 ```
+
+---
 
 ## How It Works
 
@@ -101,9 +126,11 @@ Session Start → Load AGENTS.md → Load using-superpowers
                      Finish branch
 ```
 
+---
+
 ## What Changed from Original Superpowers
 
-This port aims to stay as close to the original Superpowers as possible. The changes are the minimum required to run natively on Antigravity. Here's what's different:
+> This port aims to stay as close to the original Superpowers as possible. The changes are the minimum required to run natively on Antigravity.
 
 ### Execution Model
 
@@ -117,8 +144,10 @@ The one notable structural change. The original Superpowers dispatches multiple 
 
 ### Task Tracking
 
-- **Original:** `TodoWrite` tool
-- **Port:** Live table at `<project-root>/docs/plans/task.md` (created at runtime, not bundled)
+|              | Approach                                                                            |
+| ------------ | ----------------------------------------------------------------------------------- |
+| **Original** | `TodoWrite` tool                                                                    |
+| **Port**     | Live table at `<project-root>/docs/plans/task.md` (created at runtime, not bundled) |
 
 ### Tool & Platform Vocabulary
 
@@ -150,13 +179,13 @@ Infrastructure added to make the profile work as a first-class Antigravity citiz
 - `.agent/agents/code-reviewer.md` — reviewer agent profile
 - `.agent/tests/` — automated profile validation (skill presence, frontmatter, legacy pattern detection)
 
-### Full Diff
+> **Full Diff:** See [ANTIGRAVITY-PORT-DIFFERENCES.md](ANTIGRAVITY-PORT-DIFFERENCES.md) for the exhaustive skill-by-skill comparison and [CURRENT-FLOW.md](CURRENT-FLOW.md) for the complete workflow diagram.
 
-See [ANTIGRAVITY-PORT-DIFFERENCES.md](ANTIGRAVITY-PORT-DIFFERENCES.md) for the exhaustive skill-by-skill comparison and [CURRENT-FLOW.md](CURRENT-FLOW.md) for the complete workflow diagram.
+---
 
 ## Contributing
 
-Contributions are welcome. If you find a skill that could be ported more faithfully, a translation that's off, or an Antigravity convention that's not followed — open an issue or PR.
+Contributions are welcome! If you find a skill that could be ported more faithfully, a translation that's off, or an Antigravity convention that's not followed — open an issue or PR.
 
 When making changes, run the validation suite to make sure everything still checks out:
 
@@ -165,14 +194,16 @@ npm test
 bash .agent/tests/run-tests.sh
 ```
 
-## Local Development
+---
+
+## Development
 
 ```bash
-npm test
-npm run smoke:pack
+npm test              # Run tests
+npm run smoke:pack    # Verify package contents
 ```
 
-## Publishing
+### Publishing
 
 ```bash
 npm version patch
@@ -180,6 +211,8 @@ npm publish
 ```
 
 `prepublishOnly` runs `npm test` and `npm run smoke:pack` automatically.
+
+---
 
 ## License
 
