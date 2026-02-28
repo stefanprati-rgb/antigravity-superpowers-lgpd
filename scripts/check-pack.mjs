@@ -2,9 +2,10 @@ import { execFileSync } from "node:child_process";
 import { rm } from "node:fs/promises";
 import { resolve } from "node:path";
 
-const raw = execFileSync("npm", ["pack", "--json"], {
+const raw = execFileSync(process.platform === "win32" ? "npm.cmd" : "npm", ["pack", "--json"], {
   cwd: process.cwd(),
   encoding: "utf8",
+  shell: true,
 });
 const packResult = JSON.parse(raw);
 
@@ -19,7 +20,7 @@ if (!filename || !Array.isArray(files)) {
 
 const packagedPaths = new Set(files.map((file) => file.path));
 const required = [
-  "bin/antigravity-superpowers.js",
+  "bin/antigravity-lgpd.js",
   "src/cli.js",
   "src/commands/init.js",
   "templates/.agent/AGENTS.md",

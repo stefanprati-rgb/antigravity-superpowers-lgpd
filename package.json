@@ -4,7 +4,7 @@
   "description": "CLI to initialize the Antigravity Superpowers .agent profile",
   "type": "module",
   "bin": {
-    "antigravity-superpowers": "bin/antigravity-superpowers.js"
+    "antigravity-lgpd": "bin/antigravity-lgpd.js"
   },
   "files": [
     "bin/",
@@ -13,7 +13,7 @@
     "README.md"
   ],
   "scripts": {
-    "test": "node --test tests",
+    "test": "node --test tests/*.test.mjs",
     "smoke:pack": "node scripts/check-pack.mjs",
     "prepublishOnly": "npm run smoke:pack"
   },
