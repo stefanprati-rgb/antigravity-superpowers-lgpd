@@ -75,6 +75,8 @@ required_skills=(
   "writing-plans"
   "writing-skills"
   "single-flow-task-execution"
+  "project-onboarding"
+  "handling-personal-data"
 )
 
 for skill in "${required_skills[@]}"; do

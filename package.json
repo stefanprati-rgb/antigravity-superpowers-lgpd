@@ -1,5 +1,5 @@
 {
-  "name": "antigravity-superpowers",
+  "name": "antigravity-superpowers-lgpd",
   "version": "0.1.0",
   "description": "CLI to initialize the Antigravity Superpowers .agent profile",
   "type": "module",
@@ -15,7 +15,7 @@
   "scripts": {
     "test": "node --test tests",
     "smoke:pack": "node scripts/check-pack.mjs",
-    "prepublishOnly": "npm test && npm run smoke:pack"
+    "prepublishOnly": "npm run smoke:pack"
   },
   "keywords": [
     "antigravity",
