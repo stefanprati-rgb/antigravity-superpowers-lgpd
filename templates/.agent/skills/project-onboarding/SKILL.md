@@ -29,9 +29,13 @@ Ask the human partner EXACTLY these questions, one by one or in a brief list:
 
 ### Step 3: Scaffold the .agent/ Directory
 Based on the answers, create the following files using the project's standard templates:
+
+**Use the boilerplate templates as starting points:**
+- Copy `.agent/boilerplate/architecture.md` → `.agent/architecture.md` and customize for the project
+- Copy `.agent/boilerplate/conventions.md` → `.agent/conventions.md` and customize for the project
+
+Then create the remaining files:
 - `.agent/project.md`
-- `.agent/architecture.md`
-- `.agent/conventions.md`
 - `.agent/integrations.md`
 - `.agent/tasks.md`
 

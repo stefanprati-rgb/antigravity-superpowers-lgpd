@@ -22,5 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Run unit tests
+        run: node --test tests/*.test.mjs
+
       - name: Run smoke test
         run: npm run smoke:pack

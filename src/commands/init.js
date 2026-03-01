@@ -20,12 +20,18 @@ function parseInitArgs(args) {
   const parsed = {
     target: ".",
     force: false,
+    dryRun: false,
   };
   let targetSet = false;
 
   for (const arg of args) {
     if (arg === "--force" || arg === "-f") {
       parsed.force = true;
+      continue;
+    }
+
+    if (arg === "--dry-run" || arg === "-n") {
+      parsed.dryRun = true;
       continue;
     }
 
@@ -82,6 +88,18 @@ export async function initCommand(args, { cwd, stdout, stderr }) {
     }
 
     const agentExists = await exists(agentDir);
+
+    if (parsed.dryRun) {
+      stdout.write("Dry run — no files will be modified.\n");
+      stdout.write(`Would initialize .agent profile at ${agentDir}\n`);
+      if (agentExists && !parsed.force) {
+        stdout.write("Would fail: .agent already exists (use --force).\n");
+      } else if (agentExists && parsed.force) {
+        stdout.write("Would backup and replace existing .agent directory.\n");
+      }
+      return 0;
+    }
+
     if (agentExists && !parsed.force) {
       stderr.write(
         `.agent already exists at ${agentDir}. Re-run with --force to replace it.\n`,
@@ -90,6 +108,10 @@ export async function initCommand(args, { cwd, stdout, stderr }) {
     }
 
     if (agentExists && parsed.force) {
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
+      const backupDir = join(targetDir, `.agent-backup-${timestamp}`);
+      await cp(agentDir, backupDir, { recursive: true });
+      stdout.write(`Backed up existing .agent to ${backupDir}\n`);
       await rm(agentDir, { recursive: true, force: true });
     }
 

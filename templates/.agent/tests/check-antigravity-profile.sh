@@ -77,6 +77,7 @@ required_skills=(
   "single-flow-task-execution"
   "project-onboarding"
   "handling-personal-data"
+  "clean-architecture-enforcer"
 )
 
 for skill in "${required_skills[@]}"; do
