@@ -1,4 +1,4 @@
-# Antigravity LGPD & Context-First (Hube Energy Edition)
+# Antigravity LGPD & Context-First
 
 [🇧🇷 Versão em Português](#-versão-em-português)
 
@@ -108,4 +108,4 @@ O sistema fornece modelos base automáticos para:
 
 ---
 
-*Developed for enterprise use at Hube Energy, ensuring security and code quality through specialized agents.*
+*Ensuring security and code quality through specialized AI agents.*
