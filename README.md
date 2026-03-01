@@ -1,5 +1,8 @@
 # Antigravity LGPD & Context-First
 
+[![CI](https://github.com/stefanprati-rgb/antigravity-superpowers-lgpd/actions/workflows/test.yml/badge.svg)](https://github.com/stefanprati-rgb/antigravity-superpowers-lgpd/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 [🇧🇷 Versão em Português](#-versão-em-português)
 
 A robust, enterprise-grade version of Antigravity Superpowers optimized for **LGPD compliance**, **mandatory project context**, and **single-flow execution**.
