@@ -21,6 +21,7 @@ function parseInitArgs(args) {
     target: ".",
     force: false,
     dryRun: false,
+    withMemory: false,
   };
   let targetSet = false;
 
@@ -32,6 +33,11 @@ function parseInitArgs(args) {
 
     if (arg === "--dry-run" || arg === "-n") {
       parsed.dryRun = true;
+      continue;
+    }
+
+    if (arg === "--with-memory") {
+      parsed.withMemory = true;
       continue;
     }
 
@@ -116,6 +122,12 @@ export async function initCommand(args, { cwd, stdout, stderr }) {
     }
 
     await cp(templateDir, agentDir, { recursive: true });
+
+    if (!parsed.withMemory) {
+      await rm(join(agentDir, "memory.md"), { force: true });
+      await rm(join(agentDir, "USER.md"), { force: true });
+      await rm(join(agentDir, "sessions"), { recursive: true, force: true });
+    }
 
     stdout.write(`Initialized Antigravity Superpowers profile at ${agentDir}\n`);
     stdout.write("Next step: bash .agent/tests/run-tests.sh\n");
