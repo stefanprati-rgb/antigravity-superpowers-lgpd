@@ -15,10 +15,13 @@ LGPD (Brazil's data protection law) compliance is native. The AI has specific sk
 ### 2. Context First
 Unlike other AI tools, this engine is prevented from generating code "in the dark". The `project-onboarding` skill is mandatory for new repositories, ensuring the AI understands the architecture and conventions before suggesting any changes.
 
-### 3. Single-Flow Execution
+### 3. Persistent Memory System
+The system integrates an "antcrash" memory architecture. By initializing with `--with-memory`, the agent maintains a dense active memory (`memory.md`) and append-only daily session logs (`sessions/`). This ensures the AI context is never lost between days or crashes, and automatically redacts PII using the LGPD hooks before saving logs.
+
+### 4. Single-Flow Execution
 Focused on sequential, structured execution through `implementation plans`. This drastically reduces context hallucinations and ensures each task is verified and validated before completion.
 
-### 4. Clean Architecture Enforcer
+### 5. Clean Architecture Enforcer
 Includes an architecture validator that enforces strict layer separation (Entities, Use Cases, Adapters), keeping code maintainable and scalable for enterprise use.
 
 ## 🚀 Getting Started
@@ -47,9 +50,10 @@ antigravity-lgpd doctor
 
 | Command | Description |
 |---------|-------------|
-| `init [dir] [--force] [--dry-run]` | Initialize `.agent` profile in a project |
+| `init [dir] [--force] [--dry-run] [--with-memory]` | Initialize `.agent` profile in a project |
 | `validate [dir]` | Validate an installed `.agent` profile |
 | `doctor [dir]` | Diagnose common configuration issues |
+| `purge-sessions [dir]` | Remove session logs older than `log_retention_days` |
 
 ## 📁 Boilerplate Templates
 The system provides automatic base templates for:
@@ -76,10 +80,13 @@ A conformidade com a Lei Geral de Proteção de Dados é nativa. A IA possui ski
 #### 2. Context First
 Diferente de outras ferramentas de IA, este motor é impedido de gerar código "no escuro". O uso da skill `project-onboarding` é mandatário para novos repositórios, garantindo que a IA entenda a arquitetura e as convenções antes de sugerir qualquer alteração.
 
-#### 3. Single-Flow Execution
+#### 3. Persistent Memory System (Memória de Longo Prazo)
+O sistema integra uma arquitetura de memória "antcrash". Ao inicializar com `--with-memory`, o agente mantém uma memória ativa compacta (`memory.md`) e logs de sessão diários incrementais (`sessions/`). Isso garante que o contexto da IA nunca seja perdido entre dias de trabalho ou travamentos, além de redigir automaticamente dados PII usando os hooks da LGPD antes de salvar os arquivos.
+
+#### 4. Single-Flow Execution
 Focado em execução sequencial e estruturada através de `implementation plans`. Isto reduz drasticamente alucinações de contexto e garante que cada tarefa seja verificada e validada antes da conclusão.
 
-#### 4. Clean Architecture Enforcer
+#### 5. Clean Architecture Enforcer
 Inclui um validador de arquitetura que obriga a separação estrita de camadas (Entities, Use Cases, Adapters), mantendo o código manutenível e escalável para nível corporativo.
 
 ### 🚀 Como Começar
@@ -88,8 +95,11 @@ Inclui um validador de arquitetura que obriga a separação estrita de camadas (
 # Instalar globalmente
 npm install -g .
 
-# Inicializar no projeto
-antigravity-lgpd init
+# Inicializar no projeto (com memória persistente)
+antigravity-lgpd init --with-memory
+
+# Expurgo de histórico LGPD (Apagar sessões velhas)
+antigravity-lgpd purge-sessions
 
 # Validar perfil
 antigravity-lgpd validate
