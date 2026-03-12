@@ -23,18 +23,12 @@ const REQUIRED_FILES = [
 ];
 
 const REQUIRED_SKILLS = [
-    "brainstorming",
     "executing-plans",
-    "finishing-a-development-branch",
-    "receiving-code-review",
-    "requesting-code-review",
     "systematic-debugging",
     "test-driven-development",
-    "using-git-worktrees",
     "using-superpowers",
     "verification-before-completion",
     "writing-plans",
-    "writing-skills",
     "single-flow-task-execution",
     "project-onboarding",
     "handling-personal-data",

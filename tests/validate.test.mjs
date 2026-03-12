@@ -64,7 +64,7 @@ test("validate detects missing skills", async () => {
     try {
         // Copy templates then remove one skill
         await cp(templateDir, join(projectDir, ".agent"), { recursive: true });
-        await rm(join(projectDir, ".agent", "skills", "brainstorming"), {
+        await rm(join(projectDir, ".agent", "skills", "executing-plans"), {
             recursive: true,
             force: true,
         });
