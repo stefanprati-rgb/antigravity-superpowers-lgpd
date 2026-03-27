@@ -1,4 +1,4 @@
-# Superpowers for Antigravity (Custom Edition)
+# Superpowers for Antigravity (Custom Edition - UV Powered)
 
 You have superpowers.
 
@@ -13,6 +13,7 @@ This profile adapts Superpowers workflows for Antigravity with strict single-flo
 5. **PERSISTENT MEMORY:** If `.agent/memory.md` exists, you MUST initialize your session log (read yesterday/today's log, append actions) per the `using-superpowers` skill.
 6. Track checklist progress in `<project-root>/docs/plans/task.md` (table-only live tracker).
 7. Keep changes scoped to the requested task and verify before completion claims.
+8. **ISOLATED RUNTIME (UV):** All Python operations MUST happen within a `uv` managed environment. Global `pip` installs are strictly forbidden to prevent environment pollution.
 
 ## Tool Translation Contract
 
@@ -21,11 +22,12 @@ When source skills reference legacy tool names, use these Antigravity equivalent
 - `Task` tool -> `browser_subagent` for browser tasks, otherwise sequential `task_boundary`
 - `Skill` tool -> `view_file ~/.gemini/skills/<skill-name>/SKILL.md` (or project-local `.agent/skills/<skill-name>/SKILL.md`)
 - `TodoWrite` -> update `<project-root>/docs/plans/task.md` task list
+- **Package Management -> Use `uv pip install` for temporary tools or `uv add` for project dependencies**
+- **Shell -> `run_command` (WARNING: Never use plain `pip`. Use `uv pip` instead)**
 - File operations -> `view_file`, `write_to_file`, `replace_file_content`, `multi_replace_file_content`
 - Directory listing -> `list_dir`
 - Code structure -> `view_file_outline`, `view_code_item`
 - Search -> `grep_search`, `find_by_name`
-- Shell -> `run_command`
 - Web fetch -> `read_url_content`
 - Web search -> `search_web`
 - Image generation -> `generate_image`
@@ -37,8 +39,6 @@ When source skills reference legacy tool names, use these Antigravity equivalent
 - First preference: project skills at `.agent/skills`.
 - Second preference: user skills at `~/.gemini/skills`.
 - If both exist, project-local skills win for this profile.
-- Optional parity assets may exist at `.agent/workflows/*` and `.agent/agents/*` as entrypoint shims/reference profiles.
-- These assets do not change the strict single-flow execution requirements in this file.
 
 ## Single-Flow Execution Model
 
@@ -51,8 +51,9 @@ When source skills reference legacy tool names, use these Antigravity equivalent
 
 Before saying a task is done:
 
-1. **LGPD GUARDRAIL:** Verify no personal data (CPF, emails, passwords, etc.) is logged or exposed in dev environments, exceptions, or `.agent/sessions/` logs. Before appending to a session log, pass content through `handling-personal-data` and replace PII with `[REDACTED_LGPD]`.
-2. Run the relevant verification command(s).
-3. Confirm exit status and key output.
-4. Update `<project-root>/docs/plans/task.md`.
-5. Report evidence, then claim completion.
+1. **LGPD GUARDRAIL:** Verify no personal data (CPF, emails, passwords, etc.) is logged or exposed. Before appending to a session log, pass content through `handling-personal-data` and replace PII with `[REDACTED_LGPD]`.
+2. **ENVIRONMENT CHECK:** Confirm that any new dependency was added via `uv` and is present in the local `.venv`.
+3. Run the relevant verification command(s).
+4. Confirm exit status and key output.
+5. Update `<project-root>/docs/plans/task.md`.
+6. Report evidence, then claim completion.
