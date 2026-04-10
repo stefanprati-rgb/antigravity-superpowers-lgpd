@@ -9,6 +9,10 @@
 ## Recently Learned
 - [List specific facts discovered about the codebase, quirks, or edge cases]
 
+## Compressed Context (Context Compression Policy)
+**CRITICAL RULE:** Do not read full chat histories or load large unaltered log files. Before appending history, you MUST summarize old data and capture only the essential differentials (diffs) to conserve tokens.
+- [List highly condensed summary of prior sessions / architecture decisions]
+
 ## Next Immediate Steps
 1. [What exactly is the next unit of work?]
 

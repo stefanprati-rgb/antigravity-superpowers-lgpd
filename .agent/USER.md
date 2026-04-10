@@ -9,6 +9,11 @@ The AI agent maintains its context across separate conversations or crashes usin
 
 The agent automatically reads these files at the start of a session (via the `using-superpowers` skill) to re-establish context without needing you to repeatedly explain the current state of the project.
 
+### Context Compression & Token Efficiency
+To optimize token usage, the agent must employ **Context Compression**. 
+- Always summarize the context of previous sessions and compress long logs before appending them to the active memory (`.agent/memory.md`).
+- Prioritize reading diffs and summaries instead of loading full files or the entire conversation history into the context window.
+
 ## Privacy & LGPD Compliance
 Session logs could theoretically capture sensitive data (PII) if the agent handles user data. To comply with LGPD:
 - The agent runs a **Post-Action LGPD Hook** before writing to the session logs.
