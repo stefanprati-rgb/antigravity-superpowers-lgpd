@@ -4,7 +4,7 @@ import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const rootAgent = resolve(__dirname, "../../.agent");
+const rootAgent = resolve(__dirname, "../.agent");
 const templatesAgent = resolve(__dirname, "../templates/.agent");
 
 async function exists(path) {
@@ -26,6 +26,9 @@ const syncItems = [
     "agents",
     "tests",
     "boilerplate",
+    "memory.md",
+    "USER.md",
+    "sessions",
 ];
 
 process.stdout.write("Syncing .agent/ → templates/.agent/\n");

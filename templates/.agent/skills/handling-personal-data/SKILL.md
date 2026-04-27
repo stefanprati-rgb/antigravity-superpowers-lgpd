@@ -13,6 +13,13 @@ Handling personal data requires absolute paranoia. A single bad log line violate
 
 NEVER EXPOSE PERSONAL DATA IN LOGS, EXCEPTIONS, OR DEV ENVIRONMENTS.
 
+## Fail-Fast Policy (Strict Permission Model)
+**CRITICAL RULE:** If you detect an attempt to process unauthorized real personal data or the use of extraction tools outside the privacy scope:
+- **DO NOT** attempt to fix the error iteratively or find alternatives.
+- **ABORT** the execution immediately.
+- **THROW** a fatal error in the console exactly as: `[FATAL ERROR] LGPD Violation Attempt Blocked`
+- **END** the task immediately.
+
 ## Mandatory Verification Checklist
 
 Before committing ANY code that touches user data, you MUST verify:

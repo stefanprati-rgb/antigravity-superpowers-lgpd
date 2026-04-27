@@ -89,7 +89,7 @@ export async function initCommand(args, { cwd, stdout, stderr }) {
     const templateExists = await exists(templateDir);
     if (!templateExists) {
       throw new Error(
-        "Bundled template is missing. Run `npm run sync:template` before using init from source.",
+        "Bundled template is missing. Run `npm run sync:templates` before using init from source.",
       );
     }
 

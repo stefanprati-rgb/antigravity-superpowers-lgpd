@@ -5,7 +5,6 @@ description: Use when starting any conversation - establishes how to find and us
 
 Only load a skill when the task clearly and directly matches its described use case. Do not load skills speculatively.
 
-
 ## How to Access Skills
 
 **In Antigravity:** Use `view_file` to load a skill from `.agent/skills/<skill-name>/SKILL.md` (or `~/.gemini/skills/<skill-name>/SKILL.md` when needed). When you load a skill, follow it directly.

@@ -5,24 +5,24 @@
 
 [🇧🇷 Versão em Português](#-versão-em-português)
 
-A robust, enterprise-grade version of Antigravity Superpowers optimized for **LGPD compliance**, **mandatory project context**, and **single-flow execution**.
+A robust, enterprise-grade version of Antigravity Superpowers optimized for **LGPD guardrails**, **enhanced project context**, and **single-flow execution**.
 
 ## 🛡️ Core Pillars
 
 ### 1. LGPD Guardrail
-LGPD (Brazil's data protection law) compliance is native. The AI has specific skills (`handling-personal-data`) that activate whenever sensitive data (CPF, email, passwords, etc.) is being handled, enforcing anonymization and security by default.
+The system provides guardrails for LGPD (Brazil's data protection law) compliance. The AI includes specialized skills (`handling-personal-data`) designed to activate when sensitive data (CPF, email, passwords, etc.) is handled, helping enforce anonymization and security best practices.
 
 ### 2. Context First
-Unlike other AI tools, this engine is prevented from generating code "in the dark". The `project-onboarding` skill is mandatory for new repositories, ensuring the AI understands the architecture and conventions before suggesting any changes.
+Unlike other AI tools, this engine is configured to avoid generating code "in the dark". The `project-onboarding` skill is recommended for new repositories, helping the AI understand the architecture and conventions before suggesting changes.
 
 ### 3. Persistent Memory System
-The system integrates an "antcrash" memory architecture. By initializing with `--with-memory`, the agent maintains a dense active memory (`memory.md`) and append-only daily session logs (`sessions/`). This ensures the AI context is never lost between days or crashes, and automatically redacts PII using the LGPD hooks before saving logs.
+The system integrates an "antcrash" memory architecture. By initializing with `--with-memory`, the agent maintains a dense active memory (`memory.md`) and append-only daily session logs (`sessions/`). This is designed to help maintain context between days or crashes, with hooks to redact PII before saving logs.
 
 ### 4. Single-Flow Execution
 Focused on sequential, structured execution through `implementation plans`. This drastically reduces context hallucinations and ensures each task is verified and validated before completion.
 
 ### 5. Clean Architecture Enforcer
-Includes an architecture validator that enforces strict layer separation (Entities, Use Cases, Adapters), keeping code maintainable and scalable for enterprise use.
+Includes an architecture validator that helps enforce layer separation (Entities, Use Cases, Adapters), promoting maintainable and scalable code for enterprise use.
 
 ## 🚀 Getting Started
 
@@ -70,24 +70,24 @@ The system provides automatic base templates for:
 
 ## 🇧🇷 Versão em Português
 
-Uma versão robusta e corporativa do Antigravity Superpowers, otimizada para conformidade **LGPD**, **Contexto de Projeto Obrigatório** e **Execução em Fluxo Único (Single-Flow)**.
+Uma versão robusta e corporativa do Antigravity Superpowers, otimizada para **LGPD guardrails**, **Contexto de Projeto Aprimorado** e **Execução em Fluxo Único (Single-Flow)**.
 
 ### 🛡️ Pilares Principais
 
 #### 1. LGPD Guardrail
-A conformidade com a Lei Geral de Proteção de Dados é nativa. A IA possui skills específicas (`handling-personal-data`) que são ativadas sempre que dados sensíveis (CPF, e-mail, senhas, etc.) são manipulados, garantindo anonimização e segurança por padrão.
+O sistema fornece trilhos (guardrails) para conformidade com a Lei Geral de Proteção de Dados. A IA inclui skills específicas (`handling-personal-data`) projetadas para serem ativadas sempre que dados sensíveis (CPF, e-mail, senhas, etc.) são manipulados, auxiliando na anonimização e segurança.
 
 #### 2. Context First
-Diferente de outras ferramentas de IA, este motor é impedido de gerar código "no escuro". O uso da skill `project-onboarding` é mandatário para novos repositórios, garantindo que a IA entenda a arquitetura e as convenções antes de sugerir qualquer alteração.
+Diferente de outras ferramentas de IA, este motor é configurado para evitar gerar código "no escuro". O uso da skill `project-onboarding` é altamente recomendado para novos repositórios, ajudando a IA a entender a arquitetura e as convenções antes de sugerir alterações.
 
 #### 3. Persistent Memory System (Memória de Longo Prazo)
-O sistema integra uma arquitetura de memória "antcrash". Ao inicializar com `--with-memory`, o agente mantém uma memória ativa compacta (`memory.md`) e logs de sessão diários incrementais (`sessions/`). Isso garante que o contexto da IA nunca seja perdido entre dias de trabalho ou travamentos, além de redigir automaticamente dados PII usando os hooks da LGPD antes de salvar os arquivos.
+O sistema integra uma arquitetura de memória "antcrash". Ao inicializar com `--with-memory`, o agente mantém uma memória ativa compacta (`memory.md`) e logs de sessão diários (`sessions/`). Isso ajuda a manter o contexto da IA entre dias de trabalho ou travamentos, com hooks para redigir dados PII antes de salvar os arquivos.
 
 #### 4. Single-Flow Execution
 Focado em execução sequencial e estruturada através de `implementation plans`. Isto reduz drasticamente alucinações de contexto e garante que cada tarefa seja verificada e validada antes da conclusão.
 
 #### 5. Clean Architecture Enforcer
-Inclui um validador de arquitetura que obriga a separação estrita de camadas (Entities, Use Cases, Adapters), mantendo o código manutenível e escalável para nível corporativo.
+Inclui um validador de arquitetura que incentiva a separação de camadas (Entities, Use Cases, Adapters), ajudando a manter o código manutenível e escalável.
 
 ### 🚀 Como Começar
 

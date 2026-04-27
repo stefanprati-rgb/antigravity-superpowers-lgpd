@@ -151,3 +151,26 @@ test("init omits memory templates by default", async () => {
   }
 });
 
+test("init includes memory templates with --with-memory", async () => {
+  const projectDir = await createTempProject("agsp-withmem-");
+
+  try {
+    const result = runCli(["init", "--with-memory"], projectDir);
+    assert.equal(result.status, 0);
+
+    const hasAgent = await pathExists(join(projectDir, ".agent", "AGENTS.md"));
+    assert.equal(hasAgent, true);
+
+    const hasMemory = await pathExists(join(projectDir, ".agent", "memory.md"));
+    assert.equal(hasMemory, true, "memory.md should be included with --with-memory");
+
+    const hasUser = await pathExists(join(projectDir, ".agent", "USER.md"));
+    assert.equal(hasUser, true, "USER.md should be included with --with-memory");
+
+    const hasSessions = await pathExists(join(projectDir, ".agent", "sessions"));
+    assert.equal(hasSessions, true, "sessions folder should be included with --with-memory");
+  } finally {
+    await rm(projectDir, { recursive: true, force: true });
+  }
+});
+
