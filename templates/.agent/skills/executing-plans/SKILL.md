@@ -10,7 +10,7 @@ description: Use when you have a written implementation plan and need to execute
 Load plan, review critically, execute tasks in batches, report for review between batches.
 
 **Core principle:** Batch execution with checkpoints for architect review.
-**Entrypoint principle:** This is the standard execution entrypoint. Do not offer alternate execution modes.
+**Entrypoint principle:** This is the standard execution entrypoint.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
@@ -22,7 +22,7 @@ Load plan, review critically, execute tasks in batches, report for review betwee
 2. Review critically - identify any questions or concerns about the plan
 3. If concerns: Raise them with your human partner before starting
 4. If no concerns: follow the single-flow execution model from `.agent/skills/single-flow-task-execution/SKILL.md`
-5. Update `<project-root>/docs/plans/task.md` (table-only tracker) and proceed
+5. Update `<project-root>/docs/plans/task.md` and proceed
 
 ### Step 2: Execute Batch
 
@@ -88,7 +88,7 @@ After all tasks complete and verified:
 - Between batches: just report and wait
 - Stop when blocked, don't guess
 - Never start implementation on main/master branch without explicit user consent
-- Use `task_boundary` for coding tasks; use `browser_subagent` only for browser tasks
+- Use clear boundaries for coding tasks; use browser-specific tools only for browser tasks
 
 ## Integration
 

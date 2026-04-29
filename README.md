@@ -1,11 +1,11 @@
-# Antigravity LGPD & Context-First
+# Superpowers Agent Profile (LGPD & Context-First)
 
 [![CI](https://github.com/stefanprati-rgb/antigravity-superpowers-lgpd/actions/workflows/test.yml/badge.svg)](https://github.com/stefanprati-rgb/antigravity-superpowers-lgpd/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 [🇧🇷 Versão em Português](#-versão-em-português)
 
-A robust, enterprise-grade version of Antigravity Superpowers optimized for **LGPD guardrails**, **enhanced project context**, and **single-flow execution**.
+A robust, enterprise-grade agent profile optimized for **LGPD guardrails**, **enhanced project context**, and **multi-agent single-flow execution** (Codex, Antigravity, Claude).
 
 ## 🛡️ Core Pillars
 
@@ -70,7 +70,7 @@ The system provides automatic base templates for:
 
 ## 🇧🇷 Versão em Português
 
-Uma versão robusta e corporativa do Antigravity Superpowers, otimizada para **LGPD guardrails**, **Contexto de Projeto Aprimorado** e **Execução em Fluxo Único (Single-Flow)**.
+Uma versão robusta e corporativa de perfil de agente, otimizada para **LGPD guardrails**, **Contexto de Projeto Aprimorado** e **Execução Multi-Agente em Fluxo Único** (Codex, Antigravity, Claude).
 
 ### 🛡️ Pilares Principais
 

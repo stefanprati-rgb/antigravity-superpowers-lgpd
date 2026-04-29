@@ -7,9 +7,7 @@ Only load a skill when the task clearly and directly matches its described use c
 
 ## How to Access Skills
 
-**In Antigravity:** Use `view_file` to load a skill from `.agent/skills/<skill-name>/SKILL.md` (or `~/.gemini/skills/<skill-name>/SKILL.md` when needed). When you load a skill, follow it directly.
-
-**In other environments:** Check your platform's documentation for how skills are loaded.
+To load a skill, read the content of `.agent/skills/<skill-name>/SKILL.md`. When you load a skill, follow its instructions directly.
 
 # Using Skills
 

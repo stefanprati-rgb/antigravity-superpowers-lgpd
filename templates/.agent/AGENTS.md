@@ -1,59 +1,56 @@
-# Superpowers for Antigravity (Custom Edition - UV Powered)
+# Superpowers Agent Profile (Multi-Agent Edition)
 
 You have superpowers.
 
-This profile adapts Superpowers workflows for Antigravity with strict single-flow execution AND mandatory project context awareness.
+This profile establishes common workflows for AI agents (Codex, Antigravity, Claude) with a focus on disciplined single-flow execution and mandatory project context.
 
 ## Core Rules
 
-1. **PROJECT CONTEXT FIRST:** Before proposing ANY code or architecture, you MUST read `.agent/project.md`, `.agent/tasks.md`, and `.agent/architecture.md`. If they don't exist, invoke the `project-onboarding` skill.
-2. Prefer local skills in `.agent/skills/<skill-name>/SKILL.md`.
-3. Execute one core task at a time with `task_boundary`.
-4. Use `browser_subagent` only for browser automation tasks.
-5. **PERSISTENT MEMORY:** If `.agent/memory.md` exists, you MUST initialize your session log (read yesterday/today's log, append actions) per the `using-superpowers` skill.
-6. Track checklist progress in `<project-root>/docs/plans/task.md` (table-only live tracker).
-7. Keep changes scoped to the requested task and verify before completion claims.
-8. **ISOLATED RUNTIME (UV):** All Python operations MUST happen within a `uv` managed environment. Global `pip` installs are strictly forbidden to prevent environment pollution.
+1. **PROJECT CONTEXT FIRST:** Before proposing ANY code or architecture, you MUST read project metadata (e.g., `.agent/project.md`, `.agent/architecture.md`). If missing, use `project-onboarding` skill.
+2. **DISCIPLINED EXECUTION:** Follow the "Single-Flow" model. Work on one task at a time.
+3. **TASK TRACKING:** Maintain a live checklist in `<project-root>/docs/plans/task.md` (table-only).
+4. **LGPD GUARDRAIL:** Never log or expose PII. Use `handling-personal-data` skill when touching user data.
 
-## Tool Translation Contract
+## Agent-Specific Adaptations
 
-When source skills reference legacy tool names, use these Antigravity equivalents:
-- Legacy assistant/platform names -> `Antigravity`
-- `Task` tool -> `browser_subagent` for browser tasks, otherwise sequential `task_boundary`
-- `Skill` tool -> `view_file ~/.gemini/skills/<skill-name>/SKILL.md` (or project-local `.agent/skills/<skill-name>/SKILL.md`)
-- `TodoWrite` -> update `<project-root>/docs/plans/task.md` task list
-- **Package Management -> Use `uv pip install` for temporary tools or `uv add` for project dependencies**
-- **Shell -> `run_command` (WARNING: Never use plain `pip`. Use `uv pip` instead)**
-- File operations -> `view_file`, `write_to_file`, `replace_file_content`, `multi_replace_file_content`
-- Directory listing -> `list_dir`
-- Code structure -> `view_file_outline`, `view_code_item`
-- Search -> `grep_search`, `find_by_name`
-- Web fetch -> `read_url_content`
-- Web search -> `search_web`
-- Image generation -> `generate_image`
-- User communication during tasks -> `notify_user`
-- MCP tools -> `mcp_*` tool family
+### Codex (ChatGPT / CLI)
+- **Context:** You are running in a batch-optimized CLI/Sandbox.
+- **Action:** Summarize work clearly after each task. Single-flow means completing one atomic step fully before moving to the next in your plan.
+- **Skills:** Load skills by reading `.agent/skills/<name>/SKILL.md`.
+
+### Antigravity (Gemini)
+- **Tools:** Use `view_file` to load skills.
+- **Automation:** Use `browser_subagent` ONLY for browser tasks.
+- **Hierarchy:** Project skills at `.agent/skills/` override global skills at `~/.gemini/skills/`.
+
+### Claude (Claude Code / API)
+- **Execution:** Map `TodoWrite` or equivalent to updating `docs/plans/task.md`.
+- **Protocol:** Follow the review gates (spec compliance then code quality) for every major change.
+
+## Universal Tool Mapping
+
+Since tool names vary by agent, use these conceptual mappings:
+- **Load Skill** -> Read the content of `.agent/skills/<skill-name>/SKILL.md`.
+- **Task Boundary** -> (Concept) Clearly state the start and end of a specific unit of work. Do not use as a tool call.
+- **Write/Edit File** -> Use your native tool (e.g., `write_to_file`, `replace_content`, `str_replace_editor`).
+- **Search** -> Use `grep`, `ripgrep`, or your native search tool.
+- **Track Progress** -> Update the markdown table in `docs/plans/task.md`.
+
+## Environment Rules
+
+1. **Python Projects:** Use `uv` for environment management. Never use global `pip`.
+2. **Node.js Projects:** Use `npm` or `pnpm` as defined in `package.json`.
+3. **OS Awareness:** Scripts should be cross-platform (PowerShell/Node) where possible, as the user may be on Windows.
+4. **Verification:** Always run the relevant test/validation command before claiming a task is done.
 
 ## Skill Loading
 
 - First preference: project skills at `.agent/skills`.
-- Second preference: user skills at `~/.gemini/skills`.
-- If both exist, project-local skills win for this profile.
-
-## Single-Flow Execution Model
-
-- Do not dispatch multiple coding agents in parallel.
-- Decompose large work into ordered, explicit steps.
-- Keep exactly one active task at a time in `<project-root>/docs/plans/task.md`.
-- If browser work is required, isolate it in a dedicated browser step.
+- Second preference: fallback to agent-specific global skills if applicable.
 
 ## Verification Discipline
 
 Before saying a task is done:
-
-1. **LGPD GUARDRAIL:** Verify no personal data (CPF, emails, passwords, etc.) is logged or exposed. Before appending to a session log, pass content through `handling-personal-data` and replace PII with `[REDACTED_LGPD]`.
-2. **ENVIRONMENT CHECK:** Confirm that any new dependency was added via `uv` and is present in the local `.venv`.
-3. Run the relevant verification command(s).
-4. Confirm exit status and key output.
-5. Update `<project-root>/docs/plans/task.md`.
-6. Report evidence, then claim completion.
+1. **PII Scan:** Verify no personal data is exposed.
+2. **Test:** Run the command that proves the implementation works.
+3. **Report:** Provide evidence (output snippets) and update `docs/plans/task.md`.

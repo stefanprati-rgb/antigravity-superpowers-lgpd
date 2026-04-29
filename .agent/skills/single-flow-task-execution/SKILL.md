@@ -9,18 +9,18 @@ Execute plans by working through one task at a time with two-stage review after 
 
 **Core principle:** One task at a time + two-stage review (spec then quality) = high quality, disciplined iteration.
 
-## Antigravity Execution Model
+## Execution Model
 
-Antigravity does NOT support parallel coding subagents. All work happens in a single execution thread.
+The "Single-Flow" model ensures high quality by focusing on one unit of work at a time.
 
 **Rules:**
 
 1. **One active task only** — never work on multiple tasks simultaneously.
-2. **One execution thread only** — no parallel dispatch.
-3. **No parallel coding subagents** — Antigravity does not have `Task(...)`.
-4. **Browser automation** may use `browser_subagent` in isolated steps.
-5. **Track progress** by updating `<project-root>/docs/plans/task.md` at each state change (table-only tracker).
-6. **Use `task_boundary`** to clearly delineate each unit of work.
+2. **Sequential execution** — complete one step fully before moving to the next.
+3. **Review gates** — follow the two-stage review process (spec compliance then code quality) after each task.
+4. **Browser automation** — use browser-specific tools only when isolated in a dedicated step.
+5. **Track progress** — update `<project-root>/docs/plans/task.md` at each state change.
+6. **Delimit work** — clearly state when you are starting and finishing a task.
 
 ## When to Use
 
@@ -147,26 +147,25 @@ After all tasks:
 
 ## Task Brief Structure
 
-For each task, prepare:
+For each task, clearly state the boundary:
 
-```
-task_boundary:
-  description: "Implement Task N: [task name]"
-  prompt: |
-    ## Task Description
-    [FULL TEXT of task from plan — paste it here]
+```markdown
+### Starting Task N: [task name]
 
-    ## Context
-    [Where this fits, dependencies, architectural context]
+#### Description
+[FULL TEXT of task from plan]
 
-    ## Constraints
-    - Only modify [specific files/directories]
-    - Follow existing patterns in the codebase
-    - Write tests for new functionality
+#### Context
+[Where this fits, dependencies, architectural context]
 
-    ## Verification
-    - Run: [specific test command]
-    - Expected: [what success looks like]
+#### Constraints
+- Only modify [specific files/directories]
+- Follow existing patterns
+- Write tests
+
+#### Verification
+- Run: [specific test command]
+- Expected: [what success looks like]
 ```
 
 **Key:** Provide full task text and context upfront. Don't make the task boundary re-read the plan file.

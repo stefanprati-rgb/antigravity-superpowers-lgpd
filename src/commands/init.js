@@ -129,7 +129,7 @@ export async function initCommand(args, { cwd, stdout, stderr }) {
       await rm(join(agentDir, "sessions"), { recursive: true, force: true });
     }
 
-    stdout.write(`Initialized Antigravity Superpowers profile at ${agentDir}\n`);
+    stdout.write(`Initialized Superpowers agent profile at ${agentDir}\n`);
     stdout.write("Next step: bash .agent/tests/run-tests.sh\n");
     stdout.write(
       "Note: docs/plans/task.md is created at runtime by skills when task tracking starts.\n",

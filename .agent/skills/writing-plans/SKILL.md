@@ -33,7 +33,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Antigravity:** REQUIRED WORKFLOW: Use `.agent/workflows/execute-plan.md` to execute this plan in single-flow mode.
+> **Workflow:** Use `.agent/workflows/execute-plan.md` to execute this plan in single-flow mode.
 
 **Goal:** [One sentence describing what this builds]
 

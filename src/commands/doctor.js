@@ -34,7 +34,7 @@ export async function doctorCommand(args, { cwd, stdout }) {
         warnings++;
     };
 
-    stdout.write("Antigravity LGPD Doctor\n");
+    stdout.write("Superpowers Profile Doctor\n");
     stdout.write("========================================\n\n");
 
     // 1. Node version check

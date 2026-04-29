@@ -1,6 +1,6 @@
-# Antigravity Superpowers Current Flow
+# Superpowers Agent Profile Current Flow
 
-This document explains the active workflow used by the Antigravity profile in this folder.
+This document explains the active workflow used by the Superpowers profile in this folder.
 
 ## 1) Session Start
 
@@ -8,7 +8,7 @@ This document explains the active workflow used by the Antigravity profile in th
 2. Load `.agent/skills/using-superpowers/SKILL.md`.
 3. Before any action, check whether a relevant skill should be loaded from:
    - `.agent/skills/<skill-name>/SKILL.md` (preferred)
-   - `~/.gemini/skills/<skill-name>/SKILL.md` (fallback)
+   - Fallback to agent-specific global skills (e.g., `~/.gemini/skills/` for Antigravity)
 4. Ensure `<project-root>/docs/plans/task.md` exists as a list-only table (no instructions).
 
 ## 2) Skill-First Routing
@@ -44,9 +44,9 @@ If the request involves creating/changing behavior:
 Core execution rules from `.agent/AGENTS.md` and `single-flow-task-execution`:
 
 1. One active task at a time.
-2. One coding execution thread at a time.
-3. Use `task_boundary` for coding tasks.
-4. Use `browser_subagent` only for browser-specific tasks.
+2. Sequential execution (no parallel tasks).
+3. Use clear boundaries for coding tasks.
+4. Use browser-specific tools only for browser tasks.
 5. Update `<project-root>/docs/plans/task.md` on every task state change.
 
 Per-task loop:
