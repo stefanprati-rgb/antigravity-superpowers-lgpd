@@ -19,7 +19,7 @@ The "Single-Flow" model ensures high quality by focusing on one unit of work at 
 2. **Sequential execution** — complete one step fully before moving to the next.
 3. **Review gates** — follow the two-stage review process (spec compliance then code quality) after each task.
 4. **Browser automation** — use browser-specific tools only when isolated in a dedicated step.
-5. **Track progress** — update `<project-root>/docs/plans/task.md` at each state change.
+5. **Track progress** — update `<project-root>/docs/plans/task.json` at each state change, then render `<project-root>/docs/plans/task.md` for humans.
 6. **Delimit work** — clearly state when you are starting and finishing a task.
 
 ## When to Use
@@ -81,7 +81,7 @@ digraph process {
         "Run code quality review (./code-quality-reviewer-prompt.md)" [shape=box];
         "Code quality approved?" [shape=diamond];
         "Fix quality issues" [shape=box];
-        "Mark task complete in docs/plans/task.md" [shape=box];
+        "Mark task complete in docs/plans/task.json and render docs/plans/task.md" [shape=box];
     }
 
     "Read plan, extract all tasks with full text, note context" [shape=box];
@@ -102,8 +102,8 @@ digraph process {
     "Run code quality review (./code-quality-reviewer-prompt.md)" -> "Code quality approved?";
     "Code quality approved?" -> "Fix quality issues" [label="no"];
     "Fix quality issues" -> "Run code quality review (./code-quality-reviewer-prompt.md)" [label="re-review"];
-    "Code quality approved?" -> "Mark task complete in docs/plans/task.md" [label="yes"];
-    "Mark task complete in docs/plans/task.md" -> "More tasks remain?";
+    "Code quality approved?" -> "Mark task complete in docs/plans/task.json and render docs/plans/task.md" [label="yes"];
+    "Mark task complete in docs/plans/task.json and render docs/plans/task.md" -> "More tasks remain?";
     "More tasks remain?" -> "Execute implementation (./implementer-prompt.md)" [label="yes"];
     "More tasks remain?" -> "Run final code review for entire implementation" [label="no"];
     "Run final code review for entire implementation" -> "Use finishing-a-development-branch skill";
@@ -188,7 +188,7 @@ At logical boundaries (after each task, at major milestones), report:
 - **What verification ran** — test results, lint results
 - **What remains** — remaining tasks, known issues
 
-Update `docs/plans/task.md` with current status.
+Update `docs/plans/task.json` with current status, then regenerate `docs/plans/task.md`.
 
 ## Common Mistakes
 
@@ -224,7 +224,7 @@ You: I'm using single-flow-task-execution to execute this plan.
 
 [Read plan file: docs/plans/feature-plan.md]
 [Extract all 5 tasks with full text and context]
-[Update docs/plans/task.md with all tasks as 'not_started']
+[Update docs/plans/task.json with all tasks as 'not_started' and render docs/plans/task.md]
 
 --- Task 1: Hook installation script ---
 
@@ -246,7 +246,7 @@ Spec review: Spec compliant — all requirements met, nothing extra
 [Run code quality review following ./code-quality-reviewer-prompt.md]
 Code review: Strengths: Good test coverage, clean. Issues: None. Approved.
 
-[Mark Task 1 complete in docs/plans/task.md]
+[Mark Task 1 complete in docs/plans/task.json and render docs/plans/task.md]
 
 --- Task 2: Recovery modes ---
 
@@ -275,7 +275,7 @@ Code review: Issue (Important): Magic number (100) should be a constant
 [Run code quality review again]
 Code review: Approved
 
-[Mark Task 2 complete in docs/plans/task.md]
+[Mark Task 2 complete in docs/plans/task.json and render docs/plans/task.md]
 
 ... [Continue through remaining tasks] ...
 
@@ -319,7 +319,7 @@ Done!
 
 Before claiming all work is done:
 
-1. Ensure all task entries in `docs/plans/task.md` are `done` or `cancelled`
+1. Ensure all task entries in `docs/plans/task.json` are `done` or `cancelled`
 2. Run full test/validation command
 3. Verify no regressions across all tasks
 4. Summarize evidence (test output, review approvals)

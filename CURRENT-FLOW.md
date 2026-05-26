@@ -9,7 +9,7 @@ This document explains the active workflow used by the Superpowers profile in th
 3. Before any action, check whether a relevant skill should be loaded from:
    - `.agent/skills/<skill-name>/SKILL.md` (preferred)
    - Fallback to agent-specific global skills (e.g., `~/.gemini/skills/` for Antigravity)
-4. Ensure `<project-root>/docs/plans/task.md` exists as a list-only table (no instructions).
+4. Ensure `<project-root>/docs/plans/task.json` exists as the source of truth and render `<project-root>/docs/plans/task.md` for human reading.
 
 ## 2) Skill-First Routing
 
@@ -47,7 +47,7 @@ Core execution rules from `.agent/AGENTS.md` and `single-flow-task-execution`:
 2. Sequential execution (no parallel tasks).
 3. Use clear boundaries for coding tasks.
 4. Use browser-specific tools only for browser tasks.
-5. Update `<project-root>/docs/plans/task.md` on every task state change.
+5. Update `<project-root>/docs/plans/task.json` on every task state change, then regenerate the Markdown view.
 
 Per-task loop:
 
@@ -55,7 +55,7 @@ Per-task loop:
 2. Implement scoped change.
 3. Run verification commands.
 4. Fix and re-run until passing.
-5. Mark task `done` with notes.
+5. Mark task `done` with notes in JSON and render Markdown.
 
 ## 6) Verification Gate
 
@@ -84,12 +84,13 @@ Validate this profile itself with:
 bash templates/.agent/tests/run-tests.sh
 ```
 
-`run-tests.sh` calls `check-antigravity-profile.sh`, which verifies:
+`run-tests.sh` calls `check-antigravity-profile.sh` and prompt regression checks, which verify:
 
 - Required files exist
 - Skill frontmatter is valid
 - Legacy patterns are removed
 - AGENTS mapping contract is present
+- LGPD prompt guardrails and hook scanner remain present
 
 ## Flow Diagram
 

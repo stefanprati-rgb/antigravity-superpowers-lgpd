@@ -1,4 +1,4 @@
-import { mkdtemp, mkdir, rm, access } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, rm, access, writeFile } from "node:fs/promises";
 import { constants as fsConstants } from "node:fs";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -169,6 +169,42 @@ test("init includes memory templates with --with-memory", async () => {
 
     const hasSessions = await pathExists(join(projectDir, ".agent", "sessions"));
     assert.equal(hasSessions, true, "sessions folder should be included with --with-memory");
+  } finally {
+    await rm(projectDir, { recursive: true, force: true });
+  }
+});
+
+test("init installs LGPD pre-commit hook in git repositories", async () => {
+  const projectDir = await createTempProject("agsp-hook-");
+
+  try {
+    await mkdir(join(projectDir, ".git", "hooks"), { recursive: true });
+
+    const result = runCli(["init"], projectDir);
+    assert.equal(result.status, 0);
+    assert.match(result.stdout, /Installed LGPD pre-commit hook/);
+
+    const hook = await readFile(join(projectDir, ".git", "hooks", "pre-commit"), "utf8");
+    assert.match(hook, /node \.agent\/tools\/lgpd-pre-commit\.mjs/);
+  } finally {
+    await rm(projectDir, { recursive: true, force: true });
+  }
+});
+
+test("init leaves existing pre-commit hook untouched", async () => {
+  const projectDir = await createTempProject("agsp-hook-existing-");
+
+  try {
+    await mkdir(join(projectDir, ".git", "hooks"), { recursive: true });
+    await writeFile(join(projectDir, ".git", "hooks", "pre-commit"), "#!/usr/bin/env sh\necho existing\n");
+
+    const result = runCli(["init"], projectDir);
+    assert.equal(result.status, 0);
+    assert.match(result.stdout, /Existing \.git\/hooks\/pre-commit found/);
+
+    const hook = await readFile(join(projectDir, ".git", "hooks", "pre-commit"), "utf8");
+    assert.match(hook, /echo existing/);
+    assert.doesNotMatch(hook, /lgpd-pre-commit/);
   } finally {
     await rm(projectDir, { recursive: true, force: true });
   }

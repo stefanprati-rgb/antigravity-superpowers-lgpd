@@ -2,6 +2,7 @@
 
 ## Programming Languages
 - **Python**: Follow PEP 8. Use type hints. Prefer `pytest` for testing.
+- **Python dependencies**: Use `uv` with `pyproject.toml` and `uv.lock`. Prefer `uv add`, `uv remove`, `uv sync`, and `uv run`; do not install into the global interpreter with `pip`.
 - **JavaScript/TypeScript**: Use ESM. Use Prettier/ESLint.
 
 ## Git Commits

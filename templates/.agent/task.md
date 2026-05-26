@@ -2,9 +2,10 @@
 
 This file is a template/reference for task tracking behavior.
 
-Live tracking must happen in `<project-root>/docs/plans/task.md`.
+Live tracking must happen in `<project-root>/docs/plans/task.json`.
 
-The live task file should contain only task list rows (no instructions or prose).
+Render `<project-root>/docs/plans/task.md` from the JSON for human reading.
+The live Markdown file should contain only generated task list rows (no instructions or prose).
 
 | id | task | status | notes |
 | --- | --- | --- | --- |

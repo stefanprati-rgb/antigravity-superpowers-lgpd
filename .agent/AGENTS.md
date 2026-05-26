@@ -8,7 +8,7 @@ This profile establishes common workflows for AI agents (Codex, Antigravity, Cla
 
 1. **PROJECT CONTEXT FIRST:** Before proposing ANY code or architecture, you MUST read project metadata (e.g., `.agent/project.md`, `.agent/architecture.md`). If missing, use `project-onboarding` skill.
 2. **DISCIPLINED EXECUTION:** Follow the "Single-Flow" model. Work on one task at a time.
-3. **TASK TRACKING:** Maintain a live checklist in `<project-root>/docs/plans/task.md` (table-only).
+3. **TASK TRACKING:** Maintain the live state in `<project-root>/docs/plans/task.json`; render `<project-root>/docs/plans/task.md` from it for human reading.
 4. **LGPD GUARDRAIL:** Never log or expose PII. Use `handling-personal-data` skill when touching user data.
 
 ## Agent-Specific Adaptations
@@ -31,14 +31,15 @@ This profile establishes common workflows for AI agents (Codex, Antigravity, Cla
 
 Since tool names vary by agent, use these conceptual mappings:
 - **Load Skill** -> Read the content of `.agent/skills/<skill-name>/SKILL.md`.
+- **Skill loading in Antigravity** -> Use `view_file` for `.agent/skills/<skill-name>/SKILL.md`.
 - **Task Boundary** -> (Concept) Clearly state the start and end of a specific unit of work. Do not use as a tool call.
 - **Write/Edit File** -> Use your native tool (e.g., `write_to_file`, `replace_content`, `str_replace_editor`).
 - **Search** -> Use `grep`, `ripgrep`, or your native search tool.
-- **Track Progress** -> Update the markdown table in `docs/plans/task.md`.
+- **Track Progress** -> Update `docs/plans/task.json` first, then regenerate `docs/plans/task.md`.
 
 ## Environment Rules
 
-1. **Python Projects:** Use `uv` for environment management. Never use global `pip`.
+1. **Python Projects:** Use `uv` for environment management. Prefer `pyproject.toml` + `uv.lock`; never use global `pip`.
 2. **Node.js Projects:** Use `npm` or `pnpm` as defined in `package.json`.
 3. **OS Awareness:** Scripts should be cross-platform (PowerShell/Node) where possible, as the user may be on Windows.
 4. **Verification:** Always run the relevant test/validation command before claiming a task is done.
@@ -53,4 +54,4 @@ Since tool names vary by agent, use these conceptual mappings:
 Before saying a task is done:
 1. **PII Scan:** Verify no personal data is exposed.
 2. **Test:** Run the command that proves the implementation works.
-3. **Report:** Provide evidence (output snippets) and update `docs/plans/task.md`.
+3. **Report:** Provide evidence (output snippets) and update `docs/plans/task.json` plus the rendered `docs/plans/task.md`.

@@ -17,7 +17,7 @@ function helpText() {
     "  init            Initialize .agent profile in a project",
     "  validate        Validate an installed .agent profile",
     "  doctor          Diagnose common configuration issues",
-    "  purge-sessions  Remove session logs older than log_retention_days",
+    "  purge-sessions  Summarize then remove session logs older than log_retention_days",
     "",
     "Options:",
     "  -f, --force         Overwrite existing .agent directory",

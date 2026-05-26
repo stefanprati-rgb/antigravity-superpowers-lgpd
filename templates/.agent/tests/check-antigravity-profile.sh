@@ -36,6 +36,26 @@ require_absent() {
   fi
 }
 
+has_pattern() {
+  local pattern="$1"
+  local path="$2"
+  if command -v rg >/dev/null 2>&1; then
+    rg -q "$pattern" "$path"
+  else
+    grep -Eq "$pattern" "$path"
+  fi
+}
+
+tree_has_pattern() {
+  local pattern="$1"
+  local path="$2"
+  if command -v rg >/dev/null 2>&1; then
+    rg -q "$pattern" "$path"
+  else
+    grep -REq "$pattern" "$path"
+  fi
+}
+
 echo "========================================"
 echo " Antigravity Profile Checks"
 echo "========================================"
@@ -47,10 +67,14 @@ required_files=(
   "$AGENT_DIR/AGENTS.md"
   "$AGENT_DIR/INSTALL.md"
   "$AGENT_DIR/task.md"
+  "$AGENT_DIR/task.json"
   "$AGENT_DIR/workflows/brainstorm.md"
   "$AGENT_DIR/workflows/write-plan.md"
   "$AGENT_DIR/workflows/execute-plan.md"
   "$AGENT_DIR/agents/code-reviewer.md"
+  "$AGENT_DIR/tools/lgpd-pre-commit.mjs"
+  "$AGENT_DIR/tools/render-task-md.mjs"
+  "$SCRIPT_DIR/prompt-regression.mjs"
   "$SCRIPT_DIR/check-antigravity-profile.sh"
   "$SCRIPT_DIR/run-tests.sh"
 )
@@ -59,6 +83,7 @@ for file in "${required_files[@]}"; do
   require_file "$file"
 done
 
+require_absent "$ROOT_DIR/docs/plans/task.json"
 require_absent "$ROOT_DIR/docs/plans/task.md"
 
 required_skills=(
@@ -89,19 +114,19 @@ echo "Checking frontmatter..."
 for skill in "${required_skills[@]}"; do
   file="$AGENT_DIR/skills/$skill/SKILL.md"
 
-  if rg -q '^---$' "$file"; then
+  if has_pattern '^---?$' "$file"; then
     pass "$skill has frontmatter delimiters"
   else
     fail "$skill missing frontmatter delimiters"
   fi
 
-  if rg -q '^name:\s*[^[:space:]].*$' "$file"; then
+  if has_pattern '^name:[[:space:]]*[^[:space:]].*$' "$file"; then
     pass "$skill has name field"
   else
     fail "$skill missing name field"
   fi
 
-  if rg -q '^description:\s*[^[:space:]].*$' "$file"; then
+  if has_pattern '^description:[[:space:]]*[^[:space:]].*$' "$file"; then
     pass "$skill has description field"
   else
     fail "$skill missing description field"
@@ -124,7 +149,7 @@ legacy_patterns=(
 )
 
 for pattern in "${legacy_patterns[@]}"; do
-  if rg -q "$pattern" "$AGENT_DIR/skills"; then
+  if tree_has_pattern "$pattern" "$AGENT_DIR/skills"; then
     fail "Legacy pattern found in skills: $pattern"
   else
     pass "Legacy pattern absent: $pattern"
@@ -135,23 +160,27 @@ echo ""
 echo "Checking AGENTS mapping contract..."
 
 mapping_checks=(
-  'Task.*task_boundary'
   'browser_subagent'
   'Skill.*view_file'
   'TodoWrite.*docs/plans/task\.md'
-  'run_command'
-  'grep_search'
-  'find_by_name'
-  'mcp_\*'
+  'docs/plans/task\.json'
 )
 
 for pattern in "${mapping_checks[@]}"; do
-  if rg -q "$pattern" "$AGENT_DIR/AGENTS.md"; then
+  if has_pattern "$pattern" "$AGENT_DIR/AGENTS.md"; then
     pass "AGENTS includes mapping: $pattern"
   else
     fail "AGENTS missing mapping: $pattern"
   fi
 done
+
+echo ""
+echo "Running prompt regression checks..."
+if node "$SCRIPT_DIR/prompt-regression.mjs"; then
+  pass "Prompt regression checks passed"
+else
+  fail "Prompt regression checks failed"
+fi
 
 echo ""
 echo "========================================"

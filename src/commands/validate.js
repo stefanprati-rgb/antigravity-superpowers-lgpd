@@ -15,9 +15,13 @@ const REQUIRED_FILES = [
     "AGENTS.md",
     "INSTALL.md",
     "task.md",
+    "task.json",
     "workflows/brainstorm.md",
     "workflows/write-plan.md",
     "workflows/execute-plan.md",
+    "tools/lgpd-pre-commit.mjs",
+    "tools/render-task-md.mjs",
+    "tests/prompt-regression.mjs",
     "tests/run-tests.sh",
     "tests/check-antigravity-profile.sh",
 ];

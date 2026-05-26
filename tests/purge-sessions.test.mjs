@@ -1,4 +1,4 @@
-import { mkdtemp, mkdir, rm, writeFile, utimes } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, rm, writeFile, utimes } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
@@ -70,7 +70,7 @@ test("purge-sessions removes old files and preserves recent ones", async () => {
     await writeFile(recentFile, "recent");
     await utimes(recentFile, oneDayAgo, oneDayAgo);
 
-    await writeFile(oldFile, "old");
+    await writeFile(oldFile, "# Architecture Decision\nDecision: keep API adapter isolated from core use cases.");
     await utimes(oldFile, tenDaysAgo, tenDaysAgo);
 
     await writeFile(nonMdFile, "non-md");
@@ -78,6 +78,7 @@ test("purge-sessions removes old files and preserves recent ones", async () => {
 
     const result = runCli(["purge-sessions"], projectDir);
     assert.equal(result.status, 0);
+    assert.match(result.stdout, /Summarized 1 old session files into memory\.md/);
     assert.match(result.stdout, /Purged 1 session files/);
 
     // Check files
@@ -89,6 +90,11 @@ test("purge-sessions removes old files and preserves recent ones", async () => {
     assert.strictEqual(checkExists(recentFile), true, "Recent file should exist");
     assert.strictEqual(checkExists(oldFile), false, "Old file should be purged");
     assert.strictEqual(checkExists(nonMdFile), true, "Non-md file should be ignored");
+
+    const memory = await readFile(join(projectDir, ".agent", "memory.md"), "utf8");
+    assert.match(memory, /Archived Session Summaries/);
+    assert.match(memory, /old\.md/);
+    assert.match(memory, /API adapter isolated/);
 
   } finally {
     await rm(projectDir, { recursive: true, force: true });

@@ -1,4 +1,4 @@
-import { access, cp, rm, stat } from "node:fs/promises";
+import { access, chmod, cp, mkdir, rm, stat, writeFile } from "node:fs/promises";
 import { constants as fsConstants } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join, resolve } from "node:path";
@@ -69,6 +69,34 @@ async function validateTargetDir(targetDir) {
   }
 }
 
+async function installLgpdHook(targetDir, stdout) {
+  const gitDir = join(targetDir, ".git");
+  const hookPath = join(gitDir, "hooks", "pre-commit");
+
+  if (!(await exists(gitDir))) {
+    stdout.write("No .git directory found; LGPD pre-commit hook scanner is available at .agent/tools/lgpd-pre-commit.mjs.\n");
+    return;
+  }
+
+  if (await exists(hookPath)) {
+    stdout.write("Existing .git/hooks/pre-commit found; leaving it untouched. Add `node .agent/tools/lgpd-pre-commit.mjs` to chain the LGPD scanner.\n");
+    return;
+  }
+
+  await mkdir(join(gitDir, "hooks"), { recursive: true });
+  await writeFile(
+    hookPath,
+    [
+      "#!/usr/bin/env sh",
+      "node .agent/tools/lgpd-pre-commit.mjs",
+      "",
+    ].join("\n"),
+    "utf8",
+  );
+  await chmod(hookPath, 0o755);
+  stdout.write("Installed LGPD pre-commit hook at .git/hooks/pre-commit\n");
+}
+
 export async function initCommand(args, { cwd, stdout, stderr }) {
   let parsed;
   try {
@@ -98,6 +126,7 @@ export async function initCommand(args, { cwd, stdout, stderr }) {
     if (parsed.dryRun) {
       stdout.write("Dry run — no files will be modified.\n");
       stdout.write(`Would initialize .agent profile at ${agentDir}\n`);
+      stdout.write("Would install LGPD pre-commit hook when .git/hooks/pre-commit is available to create safely.\n");
       if (agentExists && !parsed.force) {
         stdout.write("Would fail: .agent already exists (use --force).\n");
       } else if (agentExists && parsed.force) {
@@ -122,6 +151,7 @@ export async function initCommand(args, { cwd, stdout, stderr }) {
     }
 
     await cp(templateDir, agentDir, { recursive: true });
+    await installLgpdHook(targetDir, stdout);
 
     if (!parsed.withMemory) {
       await rm(join(agentDir, "memory.md"), { force: true });

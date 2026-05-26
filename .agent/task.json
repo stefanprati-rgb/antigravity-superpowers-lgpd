@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "updated_at": "{{timestamp}}",
+  "tasks": [
+    {
+      "id": "example-1",
+      "task": "Read applicable skill and restate scope",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "example-2",
+      "task": "Implement scoped changes",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "example-3",
+      "task": "Run verification commands",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "example-4",
+      "task": "Report evidence and finalize",
+      "status": "pending",
+      "notes": ""
+    }
+  ]
+}

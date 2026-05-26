@@ -81,12 +81,18 @@ export async function doctorCommand(args, { cwd, stdout }) {
 
     // 5. Runtime tracker check
     stdout.write("\nRuntime:\n");
+    const structuredTrackerPath = join(targetDir, "docs", "plans", "task.json");
     const trackerPath = join(targetDir, "docs", "plans", "task.md");
-    if (await exists(trackerPath)) {
-        good("docs/plans/task.md exists (runtime tracker)");
+    if (await exists(structuredTrackerPath)) {
+        good("docs/plans/task.json exists (structured runtime tracker)");
+    } else if (await exists(trackerPath)) {
+        warn(
+            "docs/plans/task.md exists but structured tracker is missing",
+            "Create docs/plans/task.json and render Markdown from it for human readers",
+        );
     } else {
         warn(
-            "docs/plans/task.md not found",
+            "docs/plans/task.json not found",
             "This is normal — it's created at runtime when task tracking starts",
         );
     }
@@ -132,6 +138,14 @@ export async function doctorCommand(args, { cwd, stdout }) {
         good("conventions.md template available");
     } else {
         warn("conventions.md template missing", "Re-run sync:templates or init --force");
+    }
+
+    // 8. Defense in depth
+    stdout.write("\nSecurity Hooks:\n");
+    if (await exists(join(agentDir, "tools", "lgpd-pre-commit.mjs"))) {
+        good("LGPD pre-commit scanner available");
+    } else {
+        warn("LGPD pre-commit scanner missing", "Re-run sync:templates or init --force");
     }
 
     stdout.write("\n========================================\n");

@@ -1,4 +1,4 @@
-import { mkdtemp, mkdir, rm, cp } from "node:fs/promises";
+import { mkdtemp, mkdir, rm, cp, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
@@ -51,10 +51,13 @@ test("doctor returns code 0 and HEALTHY when profile is valid", async () => {
     
     // Create required runtime tracker to avoid warnings
     await mkdir(join(projectDir, "docs", "plans"), { recursive: true });
-    await import("node:fs/promises").then(fs => fs.writeFile(join(projectDir, "docs", "plans", "task.md"), "# Task"));
+    await writeFile(
+      join(projectDir, "docs", "plans", "task.json"),
+      JSON.stringify({ version: 1, tasks: [] }),
+    );
     
     // Create project.md
-    await import("node:fs/promises").then(fs => fs.writeFile(join(projectDir, ".agent", "project.md"), "# Project"));
+    await writeFile(join(projectDir, ".agent", "project.md"), "# Project");
 
     const result = runCli(["doctor"], projectDir);
     

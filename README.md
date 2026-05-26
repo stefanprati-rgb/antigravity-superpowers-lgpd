@@ -16,7 +16,7 @@ The system provides guardrails for LGPD (Brazil's data protection law) complianc
 Unlike other AI tools, this engine is configured to avoid generating code "in the dark". The `project-onboarding` skill is recommended for new repositories, helping the AI understand the architecture and conventions before suggesting changes.
 
 ### 3. Persistent Memory System
-The system integrates an "antcrash" memory architecture. By initializing with `--with-memory`, the agent maintains a dense active memory (`memory.md`) and append-only daily session logs (`sessions/`). This is designed to help maintain context between days or crashes, with hooks to redact PII before saving logs.
+The system integrates an "antcrash" memory architecture. By initializing with `--with-memory`, the agent maintains a dense active memory (`memory.md`) and append-only daily session logs (`sessions/`). `purge-sessions` summarizes old logs into memory before deleting them, preserving architectural context without bloating future prompts.
 
 ### 4. Single-Flow Execution
 Focused on sequential, structured execution through `implementation plans`. This drastically reduces context hallucinations and ensures each task is verified and validated before completion.
@@ -53,12 +53,18 @@ antigravity-lgpd doctor
 | `init [dir] [--force] [--dry-run] [--with-memory]` | Initialize `.agent` profile in a project |
 | `validate [dir]` | Validate an installed `.agent` profile |
 | `doctor [dir]` | Diagnose common configuration issues |
-| `purge-sessions [dir]` | Remove session logs older than `log_retention_days` |
+| `purge-sessions [dir]` | Summarize then remove session logs older than `log_retention_days` |
 
 ## 📁 Boilerplate Templates
 The system provides automatic base templates for:
 - `architecture.md`: Clean Architecture focused
-- `conventions.md`: Python/JavaScript & Conventional Commits
+- `conventions.md`: Python/JavaScript, `uv`, and Conventional Commits
+
+## Security and Tracking
+
+- `init` installs a local LGPD pre-commit scanner when a git repository is present and no existing hook would be overwritten.
+- Task state lives in `docs/plans/task.json`; `docs/plans/task.md` is generated for human reading.
+- Profile tests include static prompt regressions for the LGPD fatal-block behavior.
 
 ## 🔄 Workflows
 
@@ -81,7 +87,7 @@ O sistema fornece trilhos (guardrails) para conformidade com a Lei Geral de Prot
 Diferente de outras ferramentas de IA, este motor é configurado para evitar gerar código "no escuro". O uso da skill `project-onboarding` é altamente recomendado para novos repositórios, ajudando a IA a entender a arquitetura e as convenções antes de sugerir alterações.
 
 #### 3. Persistent Memory System (Memória de Longo Prazo)
-O sistema integra uma arquitetura de memória "antcrash". Ao inicializar com `--with-memory`, o agente mantém uma memória ativa compacta (`memory.md`) e logs de sessão diários (`sessions/`). Isso ajuda a manter o contexto da IA entre dias de trabalho ou travamentos, com hooks para redigir dados PII antes de salvar os arquivos.
+O sistema integra uma arquitetura de memória "antcrash". Ao inicializar com `--with-memory`, o agente mantém uma memória ativa compacta (`memory.md`) e logs de sessão diários (`sessions/`). O `purge-sessions` sumariza logs antigos na memória antes de apagá-los, preservando decisões arquiteturais sem inflar o contexto futuro.
 
 #### 4. Single-Flow Execution
 Focado em execução sequencial e estruturada através de `implementation plans`. Isto reduz drasticamente alucinações de contexto e garante que cada tarefa seja verificada e validada antes da conclusão.
@@ -98,7 +104,7 @@ npm install -g .
 # Inicializar no projeto (com memória persistente)
 antigravity-lgpd init --with-memory
 
-# Expurgo de histórico LGPD (Apagar sessões velhas)
+# Expurgo de histórico LGPD (Sumarizar e apagar sessões velhas)
 antigravity-lgpd purge-sessions
 
 # Validar perfil
@@ -117,7 +123,7 @@ antigravity-lgpd doctor
 ### 📁 Estrutura de Boilerplate
 O sistema fornece modelos base automáticos para:
 - `architecture.md`: Focado em Clean Architecture.
-- `conventions.md`: Focado em Python/JavaScript e Conventional Commits.
+- `conventions.md`: Focado em Python/JavaScript, `uv` e Conventional Commits.
 
 ---
 
