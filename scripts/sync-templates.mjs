@@ -31,6 +31,11 @@ const syncItems = [
     "memory.md",
     "USER.md",
     "sessions",
+    "profiles",
+    "architecture.md",
+    "conventions.md",
+    "integrations.md",
+    "tasks.md",
 ];
 
 process.stdout.write("Syncing .agent/ → templates/.agent/\n");

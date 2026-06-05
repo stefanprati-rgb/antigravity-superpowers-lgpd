@@ -78,19 +78,27 @@ The system provides automatic base templates for:
 
 Uma versão robusta e corporativa de perfil de agente, otimizada para **LGPD guardrails**, **Contexto de Projeto Aprimorado** e **Execução Multi-Agente em Fluxo Único** (Codex, Antigravity, Claude).
 
+Este projeto entrega um CLI (`antigravity-lgpd`) e um pacote de templates `.agent` para instalar, validar e manter um perfil de agente com:
+
+- Skills versionadas para execução disciplinada, LGPD, onboarding e arquitetura limpa.
+- Validação local do perfil instalado (`validate`, `doctor` e testes internos).
+- Memória persistente opcional com sumarização de sessões antigas antes da purga.
+- Tracking estruturado em JSON, com Markdown gerado apenas para leitura humana.
+- Hook local de pre-commit para bloquear vazamento acidental de dados pessoais ou segredos.
+
 ### 🛡️ Pilares Principais
 
 #### 1. LGPD Guardrail
-O sistema fornece trilhos (guardrails) para conformidade com a Lei Geral de Proteção de Dados. A IA inclui skills específicas (`handling-personal-data`) projetadas para serem ativadas sempre que dados sensíveis (CPF, e-mail, senhas, etc.) são manipulados, auxiliando na anonimização e segurança.
+O sistema fornece trilhos (guardrails) para conformidade com a Lei Geral de Proteção de Dados. A IA inclui skills específicas (`handling-personal-data`) projetadas para serem ativadas sempre que dados sensíveis (CPF, e-mail, senhas, etc.) são manipulados, auxiliando na anonimização e segurança. O perfil também inclui um scanner local de pre-commit como defesa em profundidade.
 
 #### 2. Context First
 Diferente de outras ferramentas de IA, este motor é configurado para evitar gerar código "no escuro". O uso da skill `project-onboarding` é altamente recomendado para novos repositórios, ajudando a IA a entender a arquitetura e as convenções antes de sugerir alterações.
 
 #### 3. Persistent Memory System (Memória de Longo Prazo)
-O sistema integra uma arquitetura de memória "antcrash". Ao inicializar com `--with-memory`, o agente mantém uma memória ativa compacta (`memory.md`) e logs de sessão diários (`sessions/`). O `purge-sessions` sumariza logs antigos na memória antes de apagá-los, preservando decisões arquiteturais sem inflar o contexto futuro.
+O sistema integra uma arquitetura de memória "antcrash". Ao inicializar com `--with-memory`, o agente mantém uma memória ativa compacta (`memory.md`) e logs de sessão diários (`sessions/`). O `purge-sessions` resume sessões antigas em `.agent/memory.md` antes de apagar os logs antigos, preservando decisões arquiteturais sem inflar o contexto futuro.
 
 #### 4. Single-Flow Execution
-Focado em execução sequencial e estruturada através de `implementation plans`. Isto reduz drasticamente alucinações de contexto e garante que cada tarefa seja verificada e validada antes da conclusão.
+Focado em execução sequencial e estruturada através de `implementation plans`. O estado vivo das tarefas fica em `docs/plans/task.json`; o `docs/plans/task.md` é uma visualização gerada para humanos. Isto reduz alucinações de contexto e garante que cada tarefa seja verificada e validada antes da conclusão.
 
 #### 5. Clean Architecture Enforcer
 Inclui um validador de arquitetura que incentiva a separação de camadas (Entities, Use Cases, Adapters), ajudando a manter o código manutenível e escalável.
@@ -113,6 +121,61 @@ antigravity-lgpd validate
 # Diagnosticar problemas
 antigravity-lgpd doctor
 ```
+
+### 🛠️ Comandos do CLI
+
+| Comando | Descrição |
+|---------|-----------|
+| `init [dir] [--force] [--dry-run] [--with-memory]` | Instala o perfil `.agent` no projeto |
+| `validate [dir]` | Valida se o perfil instalado possui os arquivos e skills esperados |
+| `doctor [dir]` | Diagnostica problemas comuns de ambiente, tracking e segurança |
+| `purge-sessions [dir]` | Resume sessões antigas em `memory.md` e remove logs fora da retenção |
+
+### 🔄 Atualizar Projetos Já Instalados
+
+Em cada projeto que já possui uma pasta `.agent`, rode:
+
+```bash
+antigravity-lgpd init --force
+```
+
+O comando cria um backup da configuração atual antes de substituir o perfil, em uma pasta como:
+
+```text
+.agent-backup-2026-05-26T...
+```
+
+Se o projeto usa memória persistente, rode:
+
+```bash
+antigravity-lgpd init --force --with-memory
+```
+
+Importante: `--force` substitui a pasta `.agent` ativa. A memória antiga fica preservada no backup, não é mesclada automaticamente no novo `memory.md`. Se houver conteúdo manual importante em `.agent/memory.md` ou `.agent/USER.md`, revise o backup e copie apenas o que ainda for útil.
+
+Depois da atualização, valide o perfil:
+
+```bash
+antigravity-lgpd validate
+antigravity-lgpd doctor
+bash .agent/tests/run-tests.sh
+```
+
+Projetos antigos que usavam apenas `docs/plans/task.md` devem migrar o estado vivo das tarefas para `docs/plans/task.json`. O `task.md` passa a ser a versão gerada para leitura humana.
+
+Para renderizar o Markdown a partir do JSON:
+
+```bash
+node .agent/tools/render-task-md.mjs
+```
+
+### 🔐 Segurança e Tracking
+
+- O `init` instala um scanner LGPD em `.git/hooks/pre-commit` quando o projeto é um repositório git e não existe hook anterior.
+- Se já existir um hook, ele não é sobrescrito. Encadeie manualmente `node .agent/tools/lgpd-pre-commit.mjs` no hook existente.
+- O scanner bloqueia commits com CPF, e-mails reais, tokens, chaves de API ou credenciais Firebase detectáveis localmente.
+- O estado de execução vive em `docs/plans/task.json`; o Markdown é apenas uma renderização para humanos.
+- Os testes do perfil incluem regressões estáticas para garantir que o bloqueio fatal de LGPD continue presente.
 
 ### 🛠️ Ferramentas e Workflows
 

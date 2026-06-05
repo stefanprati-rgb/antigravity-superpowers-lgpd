@@ -10,3 +10,4 @@ echo ""
 
 bash "$SCRIPT_DIR/check-antigravity-profile.sh"
 node "$SCRIPT_DIR/prompt-regression.mjs"
+node "$SCRIPT_DIR/check-profile-isolation.mjs"

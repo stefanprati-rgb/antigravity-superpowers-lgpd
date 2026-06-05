@@ -1,0 +1,9 @@
+# .codex/config.toml — Codex runtime config for Superpowers
+
+[project]
+# Files that Codex should read for context
+project_doc_fallback_filenames = ["AGENTS.md"]
+
+[sandbox]
+# workspace mode: read/write within active workspace + system temp dirs
+sandbox_mode = "workspace"

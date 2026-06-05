@@ -1,0 +1,36 @@
+# .aiexclude — Noise reduction for Gemini AI indexing
+# Prevents the agent from reading/indexing irrelevant files
+
+# Large data and output directories
+data/
+output/
+logs/
+
+# File types with no code value
+*.csv
+*.xlsx
+*.xls
+*.log
+*.txt
+*.pdf
+
+# Python artifacts
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+
+# Sensitive directories
+credentials/
+
+# Backup directories
+.agent-backup-*
+
+# Large generated files
+keys_dump_*.txt
+enrichment_*.log
+log_execucao_*.txt
+
+# Node artifacts
+node_modules/

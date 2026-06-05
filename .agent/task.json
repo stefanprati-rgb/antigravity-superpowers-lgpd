@@ -1,30 +1,90 @@
 {
   "version": 1,
-  "updated_at": "{{timestamp}}",
+  "updated_at": "2026-06-05T14:26:00Z",
   "tasks": [
     {
-      "id": "example-1",
-      "task": "Read applicable skill and restate scope",
-      "status": "pending",
-      "notes": ""
+      "id": "profile-1",
+      "task": "Create .agent/profiles/shared/core-rules.md",
+      "status": "done",
+      "notes": "Created shared core rules template."
     },
     {
-      "id": "example-2",
-      "task": "Implement scoped changes",
-      "status": "pending",
-      "notes": ""
+      "id": "profile-2",
+      "task": "Create .agent/profiles/codex/agent-profile.md",
+      "status": "done",
+      "notes": "Created Codex AGENTS.md template."
     },
     {
-      "id": "example-3",
-      "task": "Run verification commands",
-      "status": "pending",
-      "notes": ""
+      "id": "profile-3",
+      "task": "Create .agent/profiles/codex/config.toml",
+      "status": "done",
+      "notes": "Created Codex config template."
     },
     {
-      "id": "example-4",
-      "task": "Report evidence and finalize",
-      "status": "pending",
-      "notes": ""
+      "id": "profile-4",
+      "task": "Create .agent/profiles/gemini/agent-profile.md",
+      "status": "done",
+      "notes": "Created Gemini GEMINI.md template."
+    },
+    {
+      "id": "profile-5",
+      "task": "Create .agent/profiles/gemini/settings.json",
+      "status": "done",
+      "notes": "Created Gemini settings template."
+    },
+    {
+      "id": "profile-6",
+      "task": "Create .agent/profiles/gemini/aiexclude",
+      "status": "done",
+      "notes": "Created Gemini aiexclude template."
+    },
+    {
+      "id": "profile-7",
+      "task": "Create .agent/profiles/claude/agent-profile.md",
+      "status": "done",
+      "notes": "Created Claude CLAUDE.md template."
+    },
+    {
+      "id": "profile-8",
+      "task": "Create .agent/profiles/claude/settings.json",
+      "status": "done",
+      "notes": "Created Claude settings template."
+    },
+    {
+      "id": "profile-9",
+      "task": "Create .agent/tools/install.mjs",
+      "status": "done",
+      "notes": "Created multi-agent installer script."
+    },
+    {
+      "id": "profile-10",
+      "task": "Update .agent/INSTALL.md",
+      "status": "done",
+      "notes": "Updated install documentation with new flags."
+    },
+    {
+      "id": "profile-11",
+      "task": "Create .agent/tests/check-profile-isolation.mjs",
+      "status": "done",
+      "notes": "Created isolation testing script."
+    },
+    {
+      "id": "profile-12",
+      "task": "Update .gitignore",
+      "status": "done",
+      "notes": "Added agent settings and local config files to gitignore."
+    },
+    {
+      "id": "profile-13",
+      "task": "Run install & generate output files",
+      "status": "done",
+      "notes": "Ran installation for all agents successfully."
+    },
+    {
+      "id": "profile-14",
+      "task": "Run tests & verify isolation",
+      "status": "done",
+      "notes": "Tests executed successfully; all checks passed."
     }
   ]
 }
