@@ -18,6 +18,7 @@ test("cli shows help with --help", () => {
     assert.match(result.stdout, /antigravity-lgpd/);
     assert.match(result.stdout, /init/);
     assert.match(result.stdout, /validate/);
+    assert.match(result.stdout, /skills/);
     assert.match(result.stdout, /--force/);
     assert.match(result.stdout, /--dry-run/);
 });

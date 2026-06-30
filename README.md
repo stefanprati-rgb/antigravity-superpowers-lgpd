@@ -54,6 +54,20 @@ antigravity-lgpd doctor
 | `validate [dir]` | Validate an installed `.agent` profile |
 | `doctor [dir]` | Diagnose common configuration issues |
 | `purge-sessions [dir]` | Summarize then remove session logs older than `log_retention_days` |
+| `skills search/show/import` | Search ECC skills online and import selected skills locally for review |
+
+## Remote Skill Scout
+
+The CLI can use the ECC repository as an online skill catalog without executing remote prompts directly:
+
+```bash
+antigravity-lgpd skills search "regression testing"
+antigravity-lgpd skills show ecc/ai-regression-testing
+antigravity-lgpd skills import ecc/ai-regression-testing --dry-run
+antigravity-lgpd skills import ecc/ai-regression-testing
+```
+
+Imported skills are copied into `.agent/skills/<name>/` with an `ORIGIN.md` file that records the ECC source URL, source ref, Codex/Gemini adaptation note, and `Reviewed: false`. Review imported content before relying on it, especially for Claude-specific tool names or workflows.
 
 ## 📁 Boilerplate Templates
 The system provides automatic base templates for:
@@ -130,6 +144,20 @@ antigravity-lgpd doctor
 | `validate [dir]` | Valida se o perfil instalado possui os arquivos e skills esperados |
 | `doctor [dir]` | Diagnostica problemas comuns de ambiente, tracking e segurança |
 | `purge-sessions [dir]` | Resume sessões antigas em `memory.md` e remove logs fora da retenção |
+| `skills search/show/import` | Consulta skills do ECC online e importa skills selecionadas localmente para revisão |
+
+### 🔎 Skill Scout Remoto
+
+O CLI pode usar o repositório ECC como catálogo online de skills, sem executar prompts remotos diretamente:
+
+```bash
+antigravity-lgpd skills search "regression testing"
+antigravity-lgpd skills show ecc/ai-regression-testing
+antigravity-lgpd skills import ecc/ai-regression-testing --dry-run
+antigravity-lgpd skills import ecc/ai-regression-testing
+```
+
+Skills importadas são copiadas para `.agent/skills/<nome>/` com um `ORIGIN.md` registrando URL de origem, ref de origem, nota de adaptação para Codex/Gemini e `Reviewed: false`. Revise o conteúdo antes de usar, especialmente quando houver nomes de ferramentas ou fluxos específicos do Claude.
 
 ### 🔄 Atualizar Projetos Já Instalados
 

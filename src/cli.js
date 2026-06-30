@@ -2,6 +2,7 @@ import { initCommand } from "./commands/init.js";
 import { validateCommand } from "./commands/validate.js";
 import { doctorCommand } from "./commands/doctor.js";
 import { purgeSessionsCommand } from "./commands/purge-sessions.js";
+import { skillsCommand } from "./commands/skills.js";
 
 function helpText() {
   return [
@@ -12,12 +13,14 @@ function helpText() {
     "  antigravity-lgpd validate [target-directory]",
     "  antigravity-lgpd doctor [target-directory]",
     "  antigravity-lgpd purge-sessions [target-directory]",
+    "  antigravity-lgpd skills <search|show|import> ...",
     "",
     "Commands:",
     "  init            Initialize .agent profile in a project",
     "  validate        Validate an installed .agent profile",
     "  doctor          Diagnose common configuration issues",
     "  purge-sessions  Summarize then remove session logs older than log_retention_days",
+    "  skills          Search, inspect, or import remote skills safely",
     "",
     "Options:",
     "  -f, --force         Overwrite existing .agent directory",
@@ -61,6 +64,14 @@ export async function runCli(args, io = process) {
 
   if (command === "purge-sessions") {
     return purgeSessionsCommand(rest, {
+      cwd: io.cwd?.() ?? process.cwd(),
+      stdout: io.stdout,
+      stderr: io.stderr,
+    });
+  }
+
+  if (command === "skills") {
+    return skillsCommand(rest, {
       cwd: io.cwd?.() ?? process.cwd(),
       stdout: io.stdout,
       stderr: io.stderr,
