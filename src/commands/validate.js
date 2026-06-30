@@ -37,6 +37,7 @@ const REQUIRED_SKILLS = [
     "project-onboarding",
     "handling-personal-data",
     "clean-architecture-enforcer",
+    "chat-context-management",
 ];
 
 export async function validateCommand(args, { cwd, stdout, stderr }) {

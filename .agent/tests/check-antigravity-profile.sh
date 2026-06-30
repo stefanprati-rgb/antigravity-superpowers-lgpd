@@ -97,6 +97,7 @@ required_skills=(
   "project-onboarding"
   "handling-personal-data"
   "clean-architecture-enforcer"
+  "chat-context-management"
 )
 
 for skill in "${required_skills[@]}"; do

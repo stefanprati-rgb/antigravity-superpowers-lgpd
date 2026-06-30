@@ -189,6 +189,11 @@ You MUST complete each phase before proceeding to the next.
    - No other tests broken?
    - Issue actually resolved?
 
+### Validação de Ambiente `uv` (Pré-requisito)
+Antes de iniciar qualquer execução de testes (especialmente testes end-to-end), é obrigatório garantir que o ambiente virtual e as dependências estejam sincronizados.
+*   **Ação:** Verifique o estado do ambiente utilizando o gerenciador de pacotes `uv`.
+*   **Referência:** Siga as instruções detalhadas no arquivo `uv-environment-validation.md` para comandos de sincronização e resolução de bloqueios.
+
 4. **If Fix Doesn't Work**
    - STOP
    - Count: How many fixes have you tried?
@@ -282,6 +287,7 @@ These techniques are part of systematic debugging and available in this director
 - **`root-cause-tracing.md`** - Trace bugs backward through call stack to find original trigger
 - **`defense-in-depth.md`** - Add validation at multiple layers after finding root cause
 - **`condition-based-waiting.md`** - Replace arbitrary timeouts with condition polling
+- **`uv-environment-validation.md`** - Verify and sync uv virtual environment before running tests
 
 **Related skills:**
 - **`.agent/skills/test-driven-development/SKILL.md`** - For creating failing test case (Phase 4, Step 1)

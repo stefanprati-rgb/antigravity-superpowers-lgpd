@@ -43,6 +43,8 @@ const required = [
   "templates/.agent/skills/project-onboarding/SKILL.md",
   "templates/.agent/skills/handling-personal-data/SKILL.md",
   "templates/.agent/skills/clean-architecture-enforcer/SKILL.md",
+  "templates/.agent/skills/chat-context-management/SKILL.md",
+  "templates/.agent/skills/systematic-debugging/uv-environment-validation.md",
 ];
 
 const missing = required.filter((path) => !packagedPaths.has(path));
